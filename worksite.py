@@ -20,6 +20,20 @@ class worksite(osv.osv):
   _defaults = {
     
   }
+  
+  def set_nice_name(self, cr, uid, ids, context=None):
+    """
+      DEMO
+      add "! name !" to name
+    """
+    
+    name = '! '
+    this = self.browse(cr, uid, ids, context=context)[0]
+    name += this.name + ' !'
+        
+    self.write(cr, uid, ids, {'name': name })
+    
+    return True
 
 worksite()
   

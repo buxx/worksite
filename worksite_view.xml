@@ -13,6 +13,10 @@
                 <form string="Worksite" version="7.0">
                     <sheet string="Project">
                         
+                        <header>
+                            <button name="set_nice_name" string="nice" type="object" class="oe_highlight"/>
+                        </header>
+                        
                         <field name="name" placeholder="Worksite name ..."/>
                         
                         <label for="active"/>
