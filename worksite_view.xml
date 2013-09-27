@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- worksite edit/new form -->
+        <record model="ir.ui.view" id="worksite_form">
+            <field name="name">worksite.worksite.form</field>
+            <field name="model">worksite.worksite</field>
+            <field name="view_type">form</field>
+            <field eval="2" name="priority"/>
+            
+            <field name="arch" type="xml">
+                <form string="Worksite" version="7.0">
+                    <sheet string="Project">
+                        
+                        <field name="name" placeholder="Worksite name ..."/>
+                        
+                        <label for="active"/>
+                        <field name="active"/>
+                        
+                        <label for="place"/>
+                        <field name="place"/>
+                        
+                        <label for="type"/>
+                        <field name="type"/>
+                        
+                        <label for="step"/>
+                        <field name="step"/>
+                        
+                        <label for="workers"/>
+                        <field name="workers"/>
+                        
+                        <label for="stock_picking"/>
+                        <field name="stock_picking"/>
+                    </sheet>
+                </form>
+            </field>
+            
+        </record>
+        
+        <!-- worksite Tree -->
+        <record model="ir.ui.view" id="worksite_tree">
+            <field name="name">worksite.worksite.tree</field>
+            <field name="model">worksite.worksite</field>
+            <field name="arch" type="xml">
+                <tree string="Cashiers">
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="step"/>
+                    <field name="active"/>
+              </tree>
+            </field>
+        </record>
+        
+        <!-- step Tree -->
+        <record model="ir.ui.view" id="step_tree">
+            <field name="name">worksite.step.tree</field>
+            <field name="model">worksite.step</field>
+            <field name="view_type">tree</field>
+            
+            <field name="arch" type="xml">
+                <tree editable="top" string="Task Work">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- type Tree -->
+        <record model="ir.ui.view" id="type_tree">
+            <field name="name">worksite.type.tree</field>
+            <field name="model">worksite.type</field>
+            <field name="view_type">tree</field>
+            
+            <field name="arch" type="xml">
+                <tree editable="top" string="Task Work">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="worksite_search">
+            <field name="name">worksite.worksite.search</field>
+            <field name="model">worksite.worksite</field>
+            <field name="arch" type="xml">
+                <search string="Worksite">
+                    <field name="name" />
+                    <filter name="filter_see_all" string="All" domain="['|', ('active', '=', True), ('active', '=', False)]" />
+                    <filter name="filter_see_active" string="Active" domain="[('active', '=', True)]" />
+                    <filter name="filter_see_inactive" string="Inactive" domain="[('active', '=', False)]" />
+                </search>
+            </field>
+        </record>
+        
+        <!-- worksite list page -->
+        <record model="ir.actions.act_window" id="action_worksite_worksite">
+            <field name="name">Worksites</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">worksite.worksite</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="worksite_tree"/>
+            <field name="context">{"search_default_filter_see_all":1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click here to create a Worksite.
+              </p>
+            </field>
+        </record>
+        
+        <!-- worksite.type list page -->
+        <record model="ir.actions.act_window" id="action_worksite_type">
+            <field name="name">Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">worksite.type</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="type_tree"/>
+            
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a type.
+                </p>
+            </field>
+        </record>
+        
+        <!-- worksite.step list page -->
+        <record model="ir.actions.act_window" id="action_worksite_step">
+            <field name="name">Step</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">worksite.step</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="step_tree"/>
+            
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a step.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Top menu item -->
+        <menuitem name="Worksite"
+            id="base.menu_main_worksite"
+            sequence="41"/>
+        
+        <!-- submenu title -->
+        <menuitem 
+            name="Worksite"
+            id="menu_worksite_worksite"
+            parent="base.menu_main_worksite"
+            sequence="99"
+        />
+        
+        <!-- submenu item -->
+        <menuitem
+            id="menu_action_worksite_worksite"
+            parent="menu_worksite_worksite"
+            action="action_worksite_worksite"
+        />
+        
+        <!-- submenu item -->
+        <menuitem
+            id="menu_action_worksite_type"
+            parent="menu_worksite_worksite"
+            action="action_worksite_type"
+        />
+        
+        <!-- submenu item -->
+        <menuitem
+            id="menu_action_worksite_step"
+            parent="menu_worksite_worksite"
+            action="action_worksite_step"
+        />
+        
+    </data>
+</openerp>
